@@ -4,7 +4,7 @@ import sys
 
 def connect_to_db():
     try:
-        conn = psycopg2.connect(dbname="project_1", user="postgres", host="localhost", port="5432", password="almafa")
+        conn = psycopg2.connect(dbname="budget", user="postgres", host="localhost", port="5432", password="almafa")
         conn.autocommit = True
         print("Connection successful")
     except psycopg2.Error:
@@ -12,13 +12,16 @@ def connect_to_db():
         sys.exit(0)
     return conn
 
-def insert_text(conn):
+def insert_transaction(conn):
     cursor = conn.cursor()
-    text = request.form['task']
-    cursor.execute("""INSERT INTO tasks (task) values (%s);""", (text,))
+    transaction_category = request.form['transaction_category']
+    transaction_date = request.form['transaction_date']
+    transaction_details = request.form['transaction_details']
+    transaction_amount = request.form['transaction_amount']
+    cursor.execute("""INSERT INTO transaction (category, date, details, amount) values (%s, %s, %s, %s);""", (transaction_category, transaction_date, transaction_details, transaction_amount))
 
-def fetch_text(conn):
+def fetch_transactions(conn):
     cursor = conn.cursor()
-    cursor.execute("""SELECT * from tasks""")
-    records = cursor.fetchall()
-    return records 
+    cursor.execute("""SELECT * from transaction""")
+    transactions = cursor.fetchall()
+    return transactions 
