@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <title>Budget - Administration</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="icon" type="image/png" href="{{ url_for('static', filename='resources/money_favicon.png') }}" />
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/style.css') }}">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous" defer></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous" defer></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='js/main.js') }}" defer></script>
+    </head>
+
+    <body class="text-center">
+        <h1>Administration</h1>
+        <h2>Categories</h2>
+        <div class="container">
+        <form action="/category" method="post">
+            <div class="container">  
+            <div class = row>
+                <div class="col"><input type="text" name="type" class="form-control "></div>
+                <div class="col"><input type="text" name="category" class="form-control"></div>
+                <div class="col"><input type="text" name="information" class="form-control"></div>
+                <div class="col"><input type="number" name="planned_amount" class="form-control"></div>
+                <div class="col"><input type="submit" id="category_add" class="btn btn-primary" value="Add"></div>
+            </div>
+            </div>
+        </form>
+        </div>
+
+        <div class="container">
+            <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                <th>ID</th>
+                <th>Type</th>
+                <th>Category</th>
+                <th>Information</th>
+                <th>Planned Amount</th>
+                </tr>
+            </thead>
+            
+            {% for item in list %}
+                <tr>
+                    <td>{{ item[3] }}</td>
+                    <td>{{ item[1] }}</td>
+                    <td>{{ item[0] }}</td>
+                    <td>{{ item[2] }}</td>
+                    <td>{{ item[4] }}</td>
+                </tr>
+            {% endfor %}
+            </table>
+        </div>
+
+        <h2>Types</h2>
+        <div class="container">
+            <form action="/type" method="post">
+                <div class="container">  
+                <div class = row>
+                    <div class="col"><input type="text" name="type" class="form-control "></div>
+                    <select name="type">
+                        <option value="Type">Type</option>
+                      </select>
+                    <div class="col"><input type="submit" id="type_add" class="btn btn-primary" value="Add"></div>
+                </div>
+                </div>
+            </form>
+        </div>
+        
+        <div class="container">
+            <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                <th>ID</th>
+                <th>Type</th>
+                <th>Category</th>
+                <th>Information</th>
+                <th>Planned Amount</th>
+                </tr>
+            </thead>
+            
+            {% for item in list %}
+                <tr>
+                    <td>{{ item[3] }}</td>
+                    <td>{{ item[1] }}</td>
+                    <td>{{ item[0] }}</td>
+                    <td>{{ item[2] }}</td>
+                    <td>{{ item[4] }}</td>
+                </tr>
+            {% endfor %}
+            </table>
+        </div>
+    </body>
+
+</html>

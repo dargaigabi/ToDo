@@ -2,7 +2,7 @@
 <html lang="en">
 
   <head>
-    <title>Budget</title>
+    <title>Budget - Transactions</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="icon" type="image/png" href="{{ url_for('static', filename='resources/money_favicon.png') }}" />
@@ -16,26 +16,31 @@
 
   <body class="text-center">
       <h1>Budget</h1>
-      <form action="/" method="post">
-        <div class="container">  
-          <div class = row>
-            <div class="col"><input type="date" name="transaction_date" class="form-control "></div>
-            <div class="col"><input type="text" name="transaction_category" class="form-control"></div>
-            <div class="col"><input type="text" name="transaction_details" class="form-control"></div>
-            <div class="col"><input type="number" name="transaction_amount" class="form-control"></div>
-            <div class="col"><input type="submit" id="transaction_add" class="btn btn-primary" value="Add"></div>
+      <div class="container">
+        <form action="/" method="post">
+          <div class="container">  
+            <div class = row>
+              <div class="col"><input type="date" name="transaction_date" class="form-control "></div>
+              <div class="col"><input type="text" name="transaction_category" class="form-control"></div>
+              <div class="col"><input type="text" name="transaction_details" class="form-control"></div>
+              <div class="col"><input type="number" name="transaction_amount" class="form-control"></div>
+              <div class="col"><input type="submit" id="transaction_add" class="btn btn-primary" value="Add"></div>
+            </div>
           </div>
-        </div>
         </form>
+      </div>
 
-        <table>
-          <tr>
-            <th>ID</th>
-            <th>Date</th>
-            <th>Category</th>
-            <th>Details</th>
-            <th>Amount</th>
-          </tr>
+      <div class="container">
+        <table class="table">
+          <thead class="thead-dark">
+            <tr>
+              <th>ID</th>
+              <th>Date</th>
+              <th>Category</th>
+              <th>Details</th>
+              <th>Amount</th>
+            </tr>
+          </thead>
           
           {% for item in list %}
             <tr>
@@ -47,6 +52,15 @@
             </tr>
           {% endfor %}
         </table>
+      </div>
+      
+      <div class="container">
+        <a href="plans.html">Plans</a>
+      </div>
+
+      <div class="container">
+        <a href="administration.html">Administration</a>
+      </div>
   </body>
 
 </html>

@@ -11,7 +11,7 @@ def render_main_page():
         database_connector.insert_transaction(database_connector.connect_to_db())
         return redirect("/")
 
-    return render_template("index.html", list = list_of_transactions)
+    return render_template("transactions.html", list = list_of_transactions)
     
 
 if __name__ == "__main__":
