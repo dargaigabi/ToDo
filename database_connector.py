@@ -24,4 +24,16 @@ def fetch_transactions(conn):
     cursor = conn.cursor()
     cursor.execute("""SELECT * from transaction""")
     transactions = cursor.fetchall()
-    return transactions 
+    return transactions
+
+def fetch_types(conn):
+    cursor = conn.cursor()
+    cursor.execute("""SELECT * from type""")
+    types = cursor.fetchall()
+    return types
+
+def fetch_categories(conn):
+    cursor = conn.cursor()
+    cursor.execute("""SELECT * from category""")
+    categories = cursor.fetchall()
+    return categories

@@ -18,13 +18,24 @@
         <h1>Administration</h1>
         <h2>Categories</h2>
         <div class="container">
-        <form action="/category" method="post">
+        <form action="/add_category" method="post">
             <div class="container">  
             <div class = row>
-                <div class="col"><input type="text" name="type" class="form-control "></div>
-                <div class="col"><input type="text" name="category" class="form-control"></div>
-                <div class="col"><input type="text" name="information" class="form-control"></div>
-                <div class="col"><input type="number" name="planned_amount" class="form-control"></div>
+                <div class="col">
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle"
+                                type="button" id="dropdownMenu1" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">Type</button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                            {% for item in type_list %}
+                                <a class="dropdown-item">{{ item[1] }}</a>
+                            {% endfor %}
+                        </div>
+                      </div>
+                </div>
+                <div class="col"><input type="text" name="category" class="form-control" value="Category"></div>
+                <div class="col"><input type="text" name="information" class="form-control" value="Information"></div>
+                <div class="col"><input type="number" name="planned_amount" class="form-control" value="0"></div>
                 <div class="col"><input type="submit" id="category_add" class="btn btn-primary" value="Add"></div>
             </div>
             </div>
@@ -43,13 +54,13 @@
                 </tr>
             </thead>
             
-            {% for item in list %}
+            {% for item in category_list %}
                 <tr>
+                    <td>{{ item[0] }}</td>
                     <td>{{ item[3] }}</td>
                     <td>{{ item[1] }}</td>
-                    <td>{{ item[0] }}</td>
-                    <td>{{ item[2] }}</td>
                     <td>{{ item[4] }}</td>
+                    <td>{{ item[2] }}</td>
                 </tr>
             {% endfor %}
             </table>
@@ -57,13 +68,10 @@
 
         <h2>Types</h2>
         <div class="container">
-            <form action="/type" method="post">
+            <form action="/add_type" method="post">
                 <div class="container">  
                 <div class = row>
-                    <div class="col"><input type="text" name="type" class="form-control "></div>
-                    <select name="type">
-                        <option value="Type">Type</option>
-                      </select>
+                    <div class="col"><input type="text" name="type" class="form-control" value="Type"></div>
                     <div class="col"><input type="submit" id="type_add" class="btn btn-primary" value="Add"></div>
                 </div>
                 </div>
@@ -76,19 +84,13 @@
                 <tr>
                 <th>ID</th>
                 <th>Type</th>
-                <th>Category</th>
-                <th>Information</th>
-                <th>Planned Amount</th>
                 </tr>
             </thead>
             
-            {% for item in list %}
+            {% for item in type_list %}
                 <tr>
-                    <td>{{ item[3] }}</td>
-                    <td>{{ item[1] }}</td>
                     <td>{{ item[0] }}</td>
-                    <td>{{ item[2] }}</td>
-                    <td>{{ item[4] }}</td>
+                    <td>{{ item[1] }}</td>
                 </tr>
             {% endfor %}
             </table>

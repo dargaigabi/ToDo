@@ -17,13 +17,14 @@
   <body class="text-center">
       <h1>Budget</h1>
       <div class="container">
-        <form action="/" method="post">
+        <form action="/add_transaction" method="post">
           <div class="container">  
             <div class = row>
-              <div class="col"><input type="date" name="transaction_date" class="form-control "></div>
-              <div class="col"><input type="text" name="transaction_category" class="form-control"></div>
-              <div class="col"><input type="text" name="transaction_details" class="form-control"></div>
-              <div class="col"><input type="number" name="transaction_amount" class="form-control"></div>
+              <div class="col"><input type="date" name="transaction_date" class="form-control"></div>
+              <div class="col"><input type="text" name="transaction_category" class="form-control" value="Category"></div>
+              <div class="col"><input type="text" name="transaction_details" class="form-control" value="Details"></div>
+              <div class="col"><input type="number" name="transaction_amount" class="form-control" value = 0></div>
+              <div class="col"><label for="transaction_amount">Ft</label></div>
               <div class="col"><input type="submit" id="transaction_add" class="btn btn-primary" value="Add"></div>
             </div>
           </div>
@@ -42,7 +43,7 @@
             </tr>
           </thead>
           
-          {% for item in list %}
+          {% for item in transaction_list %}
             <tr>
                 <td>{{ item[3] }}</td>
                 <td>{{ item[1] }}</td>
@@ -55,11 +56,11 @@
       </div>
       
       <div class="container">
-        <a href="plans.html">Plans</a>
+        <a href="{{ url_for('render_plans_page') }}">Plans</a>
       </div>
 
       <div class="container">
-        <a href="administration.html">Administration</a>
+        <a href="{{ url_for('render_administration_page') }}">Administration</a>
       </div>
   </body>
 
