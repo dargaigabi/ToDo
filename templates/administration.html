@@ -22,16 +22,12 @@
             <div class="container">  
             <div class = row>
                 <div class="col">
-                    <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle"
-                                type="button" id="dropdownMenu1" data-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false">Type</button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                    <select name="category_type" siz>
+                            <!--
                             {% for item in type_list %}
-                                <a class="dropdown-item">{{ item[1] }}</a>
+                                <option value="{{ item[0] }}">{{ item[1] }}</option>
                             {% endfor %}
-                        </div>
-                      </div>
+                            -->
                 </div>
                 <div class="col"><input type="text" name="category" class="form-control" value="Category"></div>
                 <div class="col"><input type="text" name="information" class="form-control" value="Information"></div>

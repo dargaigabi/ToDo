@@ -20,6 +20,16 @@ def render_administration_page():
     list_of_categories = database_connector.fetch_categories(database_connector.connect_to_db())
     return render_template("administration.html", type_list = list_of_types, category_list = list_of_categories)
 
+@app.route("/add_category", methods = ['POST'])
+def add_category():    
+    database_connector.insert_category(database_connector.connect_to_db())
+    return redirect("/administration")
+
+@app.route("/add_type", methods = ['POST'])
+def add_type():    
+    database_connector.insert_type(database_connector.connect_to_db())
+    return redirect("/administration")
+
 @app.route("/plans")
 def render_plans_page():
     return render_template("plans.html")
