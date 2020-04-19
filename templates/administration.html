@@ -25,8 +25,8 @@
                         <option>{{ item[1] }}</option>
                     {% endfor %}
                 </select>
-                <input type="text" name="category_name" class="form-control" value="Name">
-                <input type="text" name="category_information" class="form-control" value="Information">
+                <input type="text" name="category_name" class="form-control">
+                <input type="text" name="category_information" class="form-control">
                 <input type="submit" id="category_add" class="btn btn-primary" value="Add">
             </div>
         </form>
@@ -48,7 +48,7 @@
                         <td>{{ item[0] }}</td>
                         <td>{{ item[3] }}</td>
                         <td>{{ item[1] }}</td>
-                        <td>{{ item[2] }}</td>
+                        <!--<td>{{ item[2] }}</td>-->
                     </tr>
                 {% endfor %}
                 </table>
@@ -58,7 +58,7 @@
         <div class="container">
             <form action="/add_type" method="post">
                 <div class="container">  
-                    <input type="text" name="type_name" class="form-control" value="Name">
+                    <input type="text" name="type_name" class="form-control">
                     <input type="submit" id="type_add" class="btn btn-primary" value="Add">
                 </div>
             </form>

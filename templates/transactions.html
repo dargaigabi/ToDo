@@ -19,14 +19,16 @@
       <div class="container">
         <form action="/add_transaction" method="post">
           <div class="container">  
-            <div class = row>
-              <div class="col"><input type="date" name="transaction_date" class="form-control"></div>
-              <div class="col"><input type="text" name="transaction_category" class="form-control" value="Category"></div>
-              <div class="col"><input type="text" name="transaction_details" class="form-control" value="Details"></div>
-              <div class="col"><input type="number" name="transaction_amount" class="form-control" value = 0></div>
-              <div class="col"><label for="transaction_amount">Ft</label></div>
-              <div class="col"><input type="submit" id="transaction_add" class="btn btn-primary" value="Add"></div>
-            </div>
+              <input type="date" name="transaction_date" class="form-control">
+              <select name="transaction_category">
+                {% for item in category_list %}
+                    <option>{{ item[1] }}</option>
+                {% endfor %}
+            </select>
+              <input type="text" name="transaction_category2" class="form-control" value="Category">
+              <input type="text" name="transaction_details" class="form-control" value="Details">
+              <input type="number" name="transaction_amount" class="form-control" value = 0>
+              <input type="submit" id="transaction_add" class="btn btn-primary" value="Add">
           </div>
         </form>
       </div>

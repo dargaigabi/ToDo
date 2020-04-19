@@ -1,6 +1,7 @@
 from flask import request
 import psycopg2
 import sys
+from datetime import datetime
 
 def connect_to_db():
     try:
@@ -49,3 +50,17 @@ def fetch_categories(conn):
     cursor.execute("""SELECT * FROM category""")
     categories = cursor.fetchall()
     return categories
+
+def insert_plan(conn):
+    cursor = conn.cursor()
+    category_list=fetch_categories(conn)
+    for item in category_list:
+        category_id=item[0]
+        planned_amount = request.form[str(category_id)]
+        cursor.execute("""INSERT INTO plan (category_id, planned_amount, insert_date) values (%s, %s, %s);""", (category_id, planned_amount, datetime.now()))
+
+def fetch_plans(conn):
+    cursor = conn.cursor()
+    cursor.execute("""SELECT * FROM plans""")
+    plans = cursor.fetchall()
+    return plans
