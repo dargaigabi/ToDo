@@ -64,3 +64,9 @@ def fetch_plans(conn):
     cursor.execute("""SELECT * FROM plans""")
     plans = cursor.fetchall()
     return plans
+
+def get_type_id_by_category_id(conn, category_id):
+    cursor = conn.cursor()
+    cursor.execute("""SELECT t.id FROM type t JOIN category c ON t.name = c.type WHERE c.id = %s""", (category_id,))
+    type_id = cursor.fetchone()
+    return type_id

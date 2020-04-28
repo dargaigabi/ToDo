@@ -8,7 +8,7 @@
         <link rel="icon" type="image/png" href="{{ url_for('static', filename='resources/money_favicon.png') }}" />
         <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/style.css') }}">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous" defer></script>
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous" defer></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous" defer></script>
         <script type="text/javascript" src="{{ url_for('static', filename='js/main.js') }}" defer></script>
@@ -19,14 +19,14 @@
 
           <h2>Summary</h2>
             <div class="container">
-              <div><label for="recurring_expenses">Recurring Expenses</label><input type="number" name="recurring_expenses" id="recurring_expenses" readonly></div>
-              <div><label for="one_time_expenses">One-Time Expenses</label><input type="number" name="one_time_expenses" id="one_time_expenses" readonly></div>
-              <div><label for="recurring_incomes">Recurring Incomes</label><input type="number" name="recurring_incomes" id="recurring_incomes" readonly></div>
-              <div><label for="one_time_incomes">One-Time Incomes</label><input type="number" name="one_time_incomes" id="one_time_incomes" readonly></div>
-              <div><label for="recurring_savings">Recurring Savings</label><input type="number" name="recurring_savings" id="recurring_savings" readonly></div>
-              <div><label for="one_time_savings">One-Time Savings</label><input type="number" name="one_time_savings" id="one_time_savings" readonly></div>
-              <div><label for="possessions">Possessions</label><input type="number" name="possessions" id="possessions" readonly></div>
-              <div><label for="amount_to_allocate">Amount to Allocate</label><input type="number" name="amount_to_allocate" readonly></div>
+              <div><label for="recurring_expenses">Recurring Expenses</label><input type="number" name="recurring_expenses" id="1" value="0" readonly></div>
+              <div><label for="one_time_expenses">One-Time Expenses</label><input type="number" name="one_time_expenses" id="2"  value="0" readonly></div>
+              <div><label for="recurring_incomes">Recurring Incomes</label><input type="number" name="recurring_incomes" id="3" value="0" readonly></div>
+              <div><label for="one_time_incomes">One-Time Incomes</label><input type="number" name="one_time_incomes" id="4" value="0" readonly></div>
+              <div><label for="recurring_savings">Recurring Savings</label><input type="number" name="recurring_savings" id="5" value="0" readonly></div>
+              <div><label for="one_time_savings">One-Time Savings</label><input type="number" name="one_time_savings" id="6" value="0" readonly></div>
+              <div><label for="possessions">Possessions</label><input type="number" name="possessions" id="8" value="0" readonly></div>
+              <div><label for="amount_to_allocate">Amount to Allocate</label><input type="number" name="amount_to_allocate" value="0" readonly></div>
             </div>
 
           <h2>Allocation</h2>
@@ -35,7 +35,7 @@
                 <div class="container">  
                   {% for item in category_list %}
                       <label>{{ item[1] }}</label>
-                      <input type="number" name="{{ item[0] }}" class="form-control">
+                      <input type="number" id="{{ item[0] }}" name="{{ item[0] }}" class="form-control">
                   {% endfor %}              
                   <input type="submit" id="plan_add" class="btn btn-primary" value="Save">
                 </div>

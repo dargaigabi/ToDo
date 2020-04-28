@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, redirect
+from flask import Flask, request, render_template, redirect, jsonify
 import database_connector
 
 app = Flask(__name__)
@@ -40,6 +40,13 @@ def render_plans_page():
 def add_plan():    
     database_connector.insert_plan(database_connector.connect_to_db())
     return redirect("/plans")
+
+@app.route("/plans/<category_id>", methods = ['POST'])
+def count_summary(category_id):
+    data = request.form
+    type_id = database_connector.get_type_id_by_category_id(database_connector.connect_to_db(), category_id)
+    return jsonify(type_id=type_id[0], 
+                    amount=data['field_value'])
 
 if __name__ == "__main__":
     app.run(debug=True)
