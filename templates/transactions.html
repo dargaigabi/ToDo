@@ -16,15 +16,16 @@
 
   <body class="text-center">
       <h1>Budget</h1>
+
       <div class="container">
         <form action="/add_transaction" method="post">
-          <div class="container">  
+          <div class="container">
               <input type="date" name="transaction_date" class="form-control">
               <select name="transaction_category">
                 {% for item in category_list %}
                     <option>{{ item[1] }}</option>
                 {% endfor %}
-            </select>
+              </select>
               <input type="text" name="transaction_category2" class="form-control" value="Category">
               <input type="text" name="transaction_details" class="form-control" value="Details">
               <input type="number" name="transaction_amount" class="form-control" value = 0>
@@ -33,6 +34,14 @@
         </form>
       </div>
 
+      <div>
+        <select name="transaction_period">
+          {% for item in period_list %}
+              <option>{{ item[1] }}</option>
+          {% endfor %}
+        </select>  
+      </div>
+      
       <div class="container">
         <table class="table">
           <thead class="thead-dark">

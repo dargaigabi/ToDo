@@ -15,11 +15,12 @@ def connect_to_db():
 
 def insert_transaction(conn):
     cursor = conn.cursor()
+    transaction_period = request.form['transaction_period']
     transaction_category = request.form['transaction_category']
     transaction_date = request.form['transaction_date']
     transaction_details = request.form['transaction_details']
     transaction_amount = request.form['transaction_amount']
-    cursor.execute("""INSERT INTO transaction (category, date, details, amount) values (%s, %s, %s, %s);""", (transaction_category, transaction_date, transaction_details, transaction_amount))
+    cursor.execute("""INSERT INTO transaction (category, date, details, amount, period) values (%s, %s, %s, %s, %s);""", (transaction_category, transaction_date, transaction_details, transaction_amount, transaction_period))
 
 def fetch_transactions(conn):
     cursor = conn.cursor()
@@ -50,6 +51,12 @@ def fetch_categories(conn):
     cursor.execute("""SELECT * FROM category""")
     categories = cursor.fetchall()
     return categories
+
+def fetch_periods(conn):
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM period ORDER BY id DESC")
+    periods = cursor.fetchall()
+    return periods
 
 def insert_plan(conn):
     cursor = conn.cursor()
