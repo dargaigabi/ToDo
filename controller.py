@@ -47,7 +47,6 @@ def add_plan():
 def count_summary(category_id):
     data = request.form
     type_id = database_connector.get_type_id_by_category_id(database_connector.connect_to_db(), category_id)
-    print(data['field_value'])
     return jsonify(type_id=type_id[0], 
                     amount=data['field_value'])
 
