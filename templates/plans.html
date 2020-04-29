@@ -15,32 +15,38 @@
     </head>
 
     <body class="text-center">
-        <h1>Plans</h1>
-
-          <h2>Summary</h2>
-            <div class="container">
-              <div><label for="recurring_expenses">Recurring Expenses</label><input type="number" name="recurring_expenses" id="1" value="0" readonly></div>
-              <div><label for="one_time_expenses">One-Time Expenses</label><input type="number" name="one_time_expenses" id="2"  value="0" readonly></div>
-              <div><label for="recurring_incomes">Recurring Incomes</label><input type="number" name="recurring_incomes" id="3" value="0" readonly></div>
-              <div><label for="one_time_incomes">One-Time Incomes</label><input type="number" name="one_time_incomes" id="4" value="0" readonly></div>
-              <div><label for="recurring_savings">Recurring Savings</label><input type="number" name="recurring_savings" id="5" value="0" readonly></div>
-              <div><label for="one_time_savings">One-Time Savings</label><input type="number" name="one_time_savings" id="6" value="0" readonly></div>
-              <div><label for="possessions">Possessions</label><input type="number" name="possessions" id="8" value="0" readonly></div>
-              <div><label for="amount_to_allocate">Amount to Allocate</label><input type="number" name="amount_to_allocate" value="0" readonly></div>
+      <h1>Plans</h1>
+      <div>
+        <select name="transaction_period" class="period_selector">
+          {% for item in period_list %}
+              <option data-id="{{ item[0] }}">{{ item[1] }}</option>
+          {% endfor %}
+        </select>  
+      </div>
+      
+      <h2>Summary</h2>
+        <div class="container">
+          <div><label for="recurring_expenses">Recurring Expenses</label><input type="number" name="recurring_expenses" id="1" value="0" readonly></div>
+          <div><label for="one_time_expenses">One-Time Expenses</label><input type="number" name="one_time_expenses" id="2"  value="0" readonly></div>
+          <div><label for="recurring_incomes">Recurring Incomes</label><input type="number" name="recurring_incomes" id="3" value="0" readonly></div>
+          <div><label for="one_time_incomes">One-Time Incomes</label><input type="number" name="one_time_incomes" id="4" value="0" readonly></div>
+          <div><label for="recurring_savings">Recurring Savings</label><input type="number" name="recurring_savings" id="5" value="0" readonly></div>
+          <div><label for="one_time_savings">One-Time Savings</label><input type="number" name="one_time_savings" id="6" value="0" readonly></div>
+          <div><label for="possessions">Possessions</label><input type="number" name="possessions" id="8" value="0" readonly></div>
+          <div><label for="amount_to_allocate">Amount to Allocate</label><input type="number" name="amount_to_allocate" value="0" readonly></div>
+        </div>
+      <h2>Allocation</h2>
+        <div class="container">
+          <form action="/add_plan" method="post">
+            <div class="container">  
+              {% for item in category_list %}
+                  <label>{{ item[1] }}</label>
+                  <input type="number" id="category-{{ item[0] }}" name="{{ item[0] }}" class="form-control">
+              {% endfor %}              
+              <input type="submit" id="plan_add" class="btn btn-primary" value="Save">
             </div>
-
-          <h2>Allocation</h2>
-            <div class="container">
-              <form action="/add_plan" method="post">
-                <div class="container">  
-                  {% for item in category_list %}
-                      <label>{{ item[1] }}</label>
-                      <input type="number" id="{{ item[0] }}" name="{{ item[0] }}" class="form-control">
-                  {% endfor %}              
-                  <input type="submit" id="plan_add" class="btn btn-primary" value="Save">
-                </div>
-              </form>
-            </div>
+          </form>
+        </div>
 
       <div class="container">
         <a href="{{ url_for('render_main_page') }}">Transactions</a>

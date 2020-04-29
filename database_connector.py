@@ -77,3 +77,19 @@ def get_type_id_by_category_id(conn, category_id):
     cursor.execute("""SELECT t.id FROM type t JOIN category c ON t.name = c.type WHERE c.id = %s""", (category_id,))
     type_id = cursor.fetchone()
     return type_id
+
+def get_planned_amount_by_period_id(conn, period_id):
+    try:
+        cursor = conn.cursor()
+        cursor.execute("SELECT planned_amount FROM plan WHERE period_id = %s", (period_id,))
+        planned_amounts = cursor.fetchall()
+        return planned_amounts
+    except (Exception, psycopg2.Error) as error :
+        print ("Error while getting data from PostgreSQL", error)
+    finally:
+        close_db_connection(cursor, conn)
+
+def close_db_connection(cursor, conn):
+    if (conn):
+        cursor.close()
+        conn.close()
