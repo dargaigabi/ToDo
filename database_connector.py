@@ -81,7 +81,7 @@ def get_type_id_by_category_id(conn, category_id):
 def get_planned_amount_by_period_id(conn, period_id):
     try:
         cursor = conn.cursor()
-        cursor.execute("SELECT planned_amount FROM plan WHERE period_id = %s", (period_id,))
+        cursor.execute("SELECT planned_amount FROM plan WHERE period_id = %s ORDER BY id", (period_id,))
         planned_amounts = cursor.fetchall()
         return planned_amounts
     except (Exception, psycopg2.Error) as error :

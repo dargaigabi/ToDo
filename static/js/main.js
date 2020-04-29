@@ -18,13 +18,15 @@ $('.form-control').change(function(){
 
 $('.period_selector').change(function() {
     var field_id=$(this).children(':selected').data('id');
-    console.log(field_id)
     $.ajax({
         method: 'POST',
         url: '/plans/period/' + field_id,
         success : function(response) {
             var planned_amounts = response['planned_amounts']
-
+            for (var i = 0; i < planned_amounts.length; i++) {
+                var amount = planned_amounts[i][0]
+                $('#category-' + (i + 1)).val(amount)
+            }
         }
     })
 })
