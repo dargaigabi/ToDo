@@ -30,3 +30,12 @@ $('.period_selector').change(function() {
         }
     })
 })
+
+$(document).ready(function() {
+    $('.planned-amount').each(function() {
+        var type_id = $(this).data('type-id');
+        var original_amount = parseInt($('#' + type_id).val());
+        var amount = parseInt($(this).val());
+        $('#' + type_id).val(original_amount + amount);
+    })
+})

@@ -20,7 +20,9 @@ def insert_transaction(conn):
     transaction_date = request.form['transaction_date']
     transaction_details = request.form['transaction_details']
     transaction_amount = request.form['transaction_amount']
-    cursor.execute("""INSERT INTO transaction (category, date, details, amount, period) values (%s, %s, %s, %s, %s);""", (transaction_category, transaction_date, transaction_details, transaction_amount, transaction_period))
+    cursor.execute("SELECT id FROM period WHERE name = %s", (transaction_period,))
+    transaction_period_id = cursor.fetchone()
+    cursor.execute("INSERT INTO transaction (category, date, details, amount, period_id) values (%s, %s, %s, %s, %s);", (transaction_category, transaction_date, transaction_details, transaction_amount, transaction_period_id))
 
 def fetch_transactions(conn):
     cursor = conn.cursor()
@@ -68,7 +70,11 @@ def insert_plan(conn):
 
 def fetch_plans(conn):
     cursor = conn.cursor()
-    cursor.execute("""SELECT * FROM plans""")
+    cursor.execute("""SELECT c.id, c.name, p.planned_amount, p.period_id, t.id
+                        FROM category c
+                        JOIN plan p ON c.id = p.category_id
+						JOIN type t ON c.type = t.name
+                        ORDER BY c.id""")
     plans = cursor.fetchall()
     return plans
 

@@ -35,8 +35,8 @@ def add_type():
 @app.route("/plans")
 def render_plans_page():
     list_of_periods = database_connector.fetch_periods(database_connector.connect_to_db())
-    list_of_categories = database_connector.fetch_categories(database_connector.connect_to_db())
-    return render_template("plans.html", category_list = list_of_categories, period_list = list_of_periods)
+    list_of_plans = database_connector.fetch_plans(database_connector.connect_to_db())
+    return render_template("plans.html", plan_list = list_of_plans, period_list = list_of_periods)
 
 @app.route("/add_plan", methods = ['POST'])
 def add_plan():    
