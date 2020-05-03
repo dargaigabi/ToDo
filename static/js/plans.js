@@ -33,23 +33,41 @@ $('.period_selector').change(function() {
     var field_id=$(this).children(':selected').data('id');
     $.ajax({
         method: 'POST',
-        url: '/plans/period/' + field_id,
+        url: '/plans',
+        data: {
+            period_id: field_id
+        },
         success : function(response) {
-            var planned_amounts = response['planned_amounts']
+            var planned_amounts = response['list_of_plans']
             for (var i = 0; i < planned_amounts.length; i++) {
-                var amount = planned_amounts[i][0]
+                var amount = planned_amounts[i][2]
                 $('#category-' + (i + 1)).val(amount)
             }
+            updateSummary()
         }
     })
 })
 
 $(document).ready(function() {
+    updateSummary()
+})
+
+function updateSummary() {
+    resetSummary();
     $('.planned-amount').each(function() {
         var type_id = $(this).data('type-id');
         var original_amount = parseInt($('#' + type_id).val());
         var amount = parseInt($(this).val());
         $('#' + type_id).val(original_amount + amount);
-        countAllocation();
+        countAllocation()
     })
-})
+}
+
+function resetSummary() {
+    var recurring_expenses = parseInt($('#1').val(0));
+    var one_time_expenses = parseInt($('#2').val(0));
+    var recurring_incomes = parseInt($('#3').val(0));
+    var one_time_incomes = parseInt($('#4').val(0));
+    var recurring_savings = parseInt($('#5').val(0));
+    var one_time_savings = parseInt($('#6').val(0));
+}

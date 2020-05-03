@@ -32,11 +32,16 @@ def add_type():
     database_connector.insert_type(database_connector.connect_to_db())
     return redirect("/administration")
 
-@app.route("/plans")
+@app.route("/plans", methods = ['POST', 'GET'])
 def render_plans_page():
-    list_of_periods = database_connector.fetch_periods(database_connector.connect_to_db())
-    list_of_plans = database_connector.fetch_plans(database_connector.connect_to_db())
-    return render_template("plans.html", plan_list = list_of_plans, period_list = list_of_periods)
+    if request.method == 'GET':
+        list_of_periods = database_connector.fetch_periods(database_connector.connect_to_db())
+        period_id = list_of_periods[0][0]
+        list_of_plans = database_connector.fetch_plans(database_connector.connect_to_db(), period_id)
+        return render_template("plans.html", plan_list = list_of_plans, period_list = list_of_periods)
+    period_id = request.form['period_id']
+    list_of_plans = database_connector.fetch_plans(database_connector.connect_to_db(), period_id)
+    return jsonify(list_of_plans = list_of_plans)
 
 @app.route("/add_plan", methods = ['POST'])
 def add_plan():    

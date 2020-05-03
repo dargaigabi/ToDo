@@ -66,15 +66,16 @@ def insert_plan(conn):
     for item in category_list:
         category_id=item[0]
         planned_amount = request.form[str(category_id)]
-        cursor.execute("""INSERT INTO plan (category_id, planned_amount, insert_date) values (%s, %s, %s);""", (category_id, planned_amount, datetime.now()))
+        cursor.execute("""INSERT INTO plan (category_id, planned_amount, insert_date) values (%s, %s, %s)""", (category_id, planned_amount, datetime.now()))
 
-def fetch_plans(conn):
+def fetch_plans(conn, period_id):
     cursor = conn.cursor()
     cursor.execute("""SELECT c.id, c.name, p.planned_amount, p.period_id, t.id
                         FROM category c
                         JOIN plan p ON c.id = p.category_id
 						JOIN type t ON c.type = t.name
-                        ORDER BY c.id""")
+						WHERE p.period_id = %s
+                        ORDER BY c.id""", (period_id, ))
     plans = cursor.fetchall()
     return plans
 
