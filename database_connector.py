@@ -68,6 +68,12 @@ def insert_plan(conn):
         planned_amount = request.form[str(category_id)]
         cursor.execute("""INSERT INTO plan (category_id, planned_amount, insert_date) values (%s, %s, %s)""", (category_id, planned_amount, datetime.now()))
 
+def update_plan(conn, planned_amount, category_id, period_id):
+    cursor = conn.cursor()
+    cursor.execute("""UPDATE plan SET planned_amount = %s
+                        WHERE period_id = %s
+                        AND category_id = %s""", (category_id, planned_amount, datetime.now()))
+
 def fetch_plans(conn, period_id):
     cursor = conn.cursor()
     cursor.execute("""SELECT c.id, c.name, p.planned_amount, p.period_id, t.id

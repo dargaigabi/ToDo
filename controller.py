@@ -44,8 +44,9 @@ def render_plans_page():
     return jsonify(list_of_plans = list_of_plans)
 
 @app.route("/add_plan", methods = ['POST'])
-def add_plan():    
-    database_connector.insert_plan(database_connector.connect_to_db())
+def add_plan():
+    print(request.form.get('period'))
+#    database_connector.update_plan(database_connector.connect_to_db())
     return redirect("/plans")
 
 @app.route("/plans/allocation/category-<category_id>", methods = ['POST'])

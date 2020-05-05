@@ -17,6 +17,11 @@
       <h1>Budget</h1>
 
       <div class="container">
+        <a href="{{ url_for('render_plans_page') }}">Plans</a>
+        <a href="{{ url_for('render_administration_page') }}">Administration</a>
+      </div>
+
+      <div class="container">
         <form action="/add_transaction" method="post">
           <div class="container">        
               <div>
@@ -24,17 +29,17 @@
                   {% for item in period_list %}
                       <option>{{ item[1] }}</option>
                   {% endfor %}
-                </select>  
+                </select>
+                <select name="transaction_category">
+                  {% for item in category_list %}
+                      <option>{{ item[1] }}</option>
+                  {% endfor %}
+                </select>
+                <input type="date" name="transaction_date" class="form-control">
+                <input type="text" name="transaction_details" class="form-control" value="Details">
+                <input type="number" name="transaction_amount" class="form-control" value = 0>
+                <input type="submit" id="transaction_add" class="btn btn-primary" value="Add">
               </div>
-              <input type="date" name="transaction_date" class="form-control">
-              <select name="transaction_category">
-                {% for item in category_list %}
-                    <option>{{ item[1] }}</option>
-                {% endfor %}
-              </select>
-              <input type="text" name="transaction_details" class="form-control" value="Details">
-              <input type="number" name="transaction_amount" class="form-control" value = 0>
-              <input type="submit" id="transaction_add" class="btn btn-primary" value="Add">
           </div>
         </form>
       </div>
@@ -61,14 +66,6 @@
             </tr>
           {% endfor %}
         </table>
-      </div>
-      
-      <div class="container">
-        <a href="{{ url_for('render_plans_page') }}">Plans</a>
-      </div>
-
-      <div class="container">
-        <a href="{{ url_for('render_administration_page') }}">Administration</a>
       </div>
   </body>
 
