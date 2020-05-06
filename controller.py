@@ -20,7 +20,8 @@ def add_transaction():
 def render_administration_page():
     list_of_types = database_connector.fetch_types(database_connector.connect_to_db())
     list_of_categories = database_connector.fetch_categories(database_connector.connect_to_db())
-    return render_template("administration.html", type_list = list_of_types, category_list = list_of_categories)
+    list_of_periods = database_connector.fetch_periods(database_connector.connect_to_db())
+    return render_template("administration.html", type_list = list_of_types, category_list = list_of_categories, period_list = list_of_periods)
 
 @app.route("/add_category", methods = ['POST'])
 def add_category():    
@@ -60,6 +61,11 @@ def count_summary(category_id):
 def select_by_period(period_id):
     allocations_by_period = database_connector.get_planned_amount_by_period_id(database_connector.connect_to_db(), period_id)
     return jsonify(planned_amounts = allocations_by_period)
+
+@app.route("/add_period", methods = ['POST'])
+def add_period():    
+    database_connector.insert_period(database_connector.connect_to_db())
+    return redirect("/administration")
 
 if __name__ == "__main__":
     app.run(debug=True)

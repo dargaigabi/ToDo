@@ -102,6 +102,17 @@ def get_planned_amount_by_period_id(conn, period_id):
     finally:
         close_db_connection(cursor, conn)
 
+def insert_period(conn):
+    cursor = conn.cursor()
+    period_name = request.form['period_name']
+    period_from = request.form['period_from']
+    period_to = request.form['period_to']
+    print(period_name)
+    print(period_from)
+    print(period_to)
+    cursor.execute("""INSERT INTO period (name, date_from, date_to) values (%s, %s, %s);""", (period_name, period_from, period_to))
+
+
 def close_db_connection(cursor, conn):
     if (conn):
         cursor.close()
