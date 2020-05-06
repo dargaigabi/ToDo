@@ -14,12 +14,13 @@
     </head>
 
     <body class="text-center">
-        <h1>Administration</h1>
-
         <div class="container">
-            <a href="{{ url_for('render_plans_page') }}">Plans</a>
-            <a href="{{ url_for('render_main_page') }}">Transactions</a>
-          </div>
+        <a href="{{ url_for('render_main_page') }}">Transactions</a>
+        <a href="{{ url_for('render_plans_page') }}">Plans</a>
+        <a href="{{ url_for('render_administration_page') }}">Administration</a>
+        </div>
+
+        <h1>Administration</h1>
 
         <h2>Categories</h2>
         <div class="container">

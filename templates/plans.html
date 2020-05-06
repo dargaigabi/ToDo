@@ -15,13 +15,14 @@
     </head>
 
     <body class="text-center">
-      <h1>Plans</h1>
-      
       <div class="container">
         <a href="{{ url_for('render_main_page') }}">Transactions</a>
+        <a href="{{ url_for('render_plans_page') }}">Plans</a>
         <a href="{{ url_for('render_administration_page') }}">Administration</a>
       </div>
-     
+
+      <h1>Plans</h1>
+
       <h2>Summary</h2>
         <div class="container">
           <div><label for="recurring_expenses">Recurring Expenses</label><input type="number" name="recurring_expenses" id="1" value="0" readonly></div>

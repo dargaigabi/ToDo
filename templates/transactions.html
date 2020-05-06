@@ -14,12 +14,13 @@
   </head>
 
   <body class="text-center">
-      <h1>Budget</h1>
-
       <div class="container">
+        <a href="{{ url_for('render_main_page') }}">Transactions</a>
         <a href="{{ url_for('render_plans_page') }}">Plans</a>
         <a href="{{ url_for('render_administration_page') }}">Administration</a>
       </div>
+
+      <h1>Transactions</h1>
 
       <div class="container">
         <form action="/add_transaction" method="post">
