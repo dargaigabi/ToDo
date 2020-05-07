@@ -28,7 +28,6 @@ function countAllocation() {
     $('#amount_to_allocate').val(amount_to_allocate);
 }
 
-
 $('.period_selector').change(function() {
     var field_id=$(this).children(':selected').data('id');
     $.ajax({

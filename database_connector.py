@@ -69,10 +69,15 @@ def insert_plan(conn):
         cursor.execute("""INSERT INTO plan (category_id, planned_amount, insert_date) values (%s, %s, %s)""", (category_id, planned_amount, datetime.now()))
 
 def update_plan(conn, planned_amount, category_id, period_id):
-    cursor = conn.cursor()
-    cursor.execute("""UPDATE plan SET planned_amount = %s
-                        WHERE period_id = %s
-                        AND category_id = %s""", (category_id, planned_amount, datetime.now()))
+    try:
+        cursor = conn.cursor()
+        cursor.execute("""UPDATE plan SET planned_amount = %s, insert_date = %s
+                            WHERE period_id = %s
+                            AND category_id = %s""", (planned_amount, datetime.now(), period_id, category_id))
+    except (Exception, psycopg2.Error) as error :
+        print ("Error while getting data from PostgreSQL", error)
+    finally:
+        close_db_connection(cursor, conn)
 
 def fetch_plans(conn, period_id):
     cursor = conn.cursor()
@@ -111,6 +116,17 @@ def insert_period(conn):
     print(period_from)
     print(period_to)
     cursor.execute("""INSERT INTO period (name, date_from, date_to) values (%s, %s, %s);""", (period_name, period_from, period_to))
+
+def get_period_id_by_period_name(conn, period_name):
+    try:
+        cursor = conn.cursor()
+        cursor.execute("SELECT id FROM period WHERE name = %s", (period_name,))
+        period_id = cursor.fetchall()
+        return period_id
+    except (Exception, psycopg2.Error) as error :
+        print ("Error while getting data from PostgreSQL", error)
+    finally:
+        close_db_connection(cursor, conn)    
 
 
 def close_db_connection(cursor, conn):
