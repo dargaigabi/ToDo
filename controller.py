@@ -47,16 +47,15 @@ def render_plans_page():
 @app.route("/update_plan", methods = ['POST'])
 def update_plan():
     period_name = request.form.get('period')
-    print(period_name)
     list_of_period_ids = database_connector.get_period_id_by_period_name(database_connector.connect_to_db(), period_name)
     period_id = list_of_period_ids[0][0]
-    print(period_id)
-#   Ezt meg majd egy for ciklussal kell megoldani    
-#   list_of_plans = database_connector.fetch_plans(database_connector.connect_to_db(), period_id)
-#   print(list_of_plans)
-#   category_id = 
-#   planned_amount = 
-    database_connector.update_plan(database_connector.connect_to_db(), planned_amount, category_id, period_id)
+    list_of_plans = database_connector.fetch_plans(database_connector.connect_to_db(), period_id)
+    for item in list_of_plans:
+        category_id = item[0]
+        print(category_id)
+        planned_amount = request.form[str(category_id)]
+        print(planned_amount)
+        database_connector.update_plan(database_connector.connect_to_db(), period_id, category_id, planned_amount)
     return redirect("/plans")
 
 @app.route("/plans/allocation/category-<category_id>", methods = ['POST'])

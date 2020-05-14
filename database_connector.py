@@ -60,6 +60,7 @@ def fetch_periods(conn):
     periods = cursor.fetchall()
     return periods
 
+#ez majd a period létrehozáshoz, period_id-val kiegészítve
 def insert_plan(conn):
     cursor = conn.cursor()
     category_list=fetch_categories(conn)
@@ -68,12 +69,12 @@ def insert_plan(conn):
         planned_amount = request.form[str(category_id)]
         cursor.execute("""INSERT INTO plan (category_id, planned_amount, insert_date) values (%s, %s, %s)""", (category_id, planned_amount, datetime.now()))
 
-def update_plan(conn, planned_amount, category_id, period_id):
+def update_plan(conn, period_id, category_id, planned_amount):
     try:
         cursor = conn.cursor()
         cursor.execute("""UPDATE plan SET planned_amount = %s, insert_date = %s
-                            WHERE period_id = %s
-                            AND category_id = %s""", (planned_amount, datetime.now(), period_id, category_id))
+                        WHERE period_id = %s
+                        AND category_id = %s""", (planned_amount, datetime.now(), period_id, category_id))
     except (Exception, psycopg2.Error) as error :
         print ("Error while getting data from PostgreSQL", error)
     finally:
