@@ -5,11 +5,15 @@ app = Flask(__name__)
 
 @app.route("/")
 def render_main_page():
-    list_of_transactions = database_connector.fetch_transactions(database_connector.connect_to_db())
-    list_of_transactions.reverse()
     list_of_categories = database_connector.fetch_categories(database_connector.connect_to_db())
     list_of_periods = database_connector.fetch_periods(database_connector.connect_to_db())
-    return render_template("transactions.html", transaction_list = list_of_transactions, category_list = list_of_categories, period_list = list_of_periods)
+    return render_template("transactions.html", category_list = list_of_categories, period_list = list_of_periods)
+
+@app.route("/<period_id>", methods = ['POST'])
+def refresh_transactions_by_period(period_id):
+    list_of_transactions = database_connector.fetch_transactions_by_period_id(database_connector.connect_to_db(), period_id)
+    list_of_transactions.reverse()
+    return jsonify(list_of_transactions = list_of_transactions)
 
 @app.route("/add_transaction", methods = ['POST'])
 def add_transaction():    

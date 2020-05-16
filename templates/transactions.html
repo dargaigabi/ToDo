@@ -8,9 +8,10 @@
     <link rel="icon" type="image/png" href="{{ url_for('static', filename='resources/money_favicon.png') }}" />
     <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/style.css') }}">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous" defer></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous" defer></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous" defer></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/transactions.js') }}" defer></script>
   </head>
 
   <body class="text-center">
@@ -26,9 +27,9 @@
         <form action="/add_transaction" method="post">
           <div class="container">        
               <div>
-                <select name="transaction_period">
+                <select name="transaction_period"  class="transaction_period_selector">
                   {% for item in period_list %}
-                      <option>{{ item[1] }}</option>
+                      <option data-id="{{ item[0] }}">{{ item[1] }}</option>
                   {% endfor %}
                 </select>
                 <select name="transaction_category">
@@ -56,16 +57,7 @@
               <th>Amount</th>
             </tr>
           </thead>
-          
-          {% for item in transaction_list %}
-            <tr>
-                <td>{{ item[3] }}</td>
-                <td>{{ item[1] }}</td>
-                <td>{{ item[0] }}</td>
-                <td>{{ item[2] }}</td>
-                <td>{{ item[4] }}</td>
-            </tr>
-          {% endfor %}
+          <tbody id = "transaction_table"></tbody>
         </table>
       </div>
   </body>
