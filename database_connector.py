@@ -24,9 +24,9 @@ def insert_transaction(conn):
     transaction_period_id = cursor.fetchone()
     cursor.execute("INSERT INTO transaction (category, date, details, amount, period_id) values (%s, %s, %s, %s, %s);", (transaction_category, transaction_date, transaction_details, transaction_amount, transaction_period_id))
 
-def fetch_transactions(conn):
+def fetch_transactions_by_period_id(conn, period_id):
     cursor = conn.cursor()
-    cursor.execute("""SELECT * from transaction""")
+    cursor.execute("""SELECT * from transaction WHERE period_id = %s""", (period_id,))
     transactions = cursor.fetchall()
     return transactions
 
