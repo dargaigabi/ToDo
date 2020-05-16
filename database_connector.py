@@ -126,6 +126,18 @@ def get_period_id_by_period_name(conn, period_name):
     finally:
         close_db_connection(cursor, conn)    
 
+def get_sum_by_type(conn, category_type, period_id):
+    try:
+        cursor = conn.cursor()
+        cursor.execute("""select coalesce(sum(t.amount), 0)
+                            from transaction t join category c on t.category = c.name
+                            where c.type = %s and t.period_id = %s""", (category_type, period_id))
+        sum_of_recurring_expenses = cursor.fetchone()
+        return sum_of_recurring_expenses
+    except (Exception, psycopg2.Error) as error :
+        print ("Error while getting data from PostgreSQL", error)
+    finally:
+        close_db_connection(cursor, conn) 
 
 def close_db_connection(cursor, conn):
     if (conn):

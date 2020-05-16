@@ -22,6 +22,13 @@
       </div>
 
       <h1>Transactions</h1>
+      <h2>Summary</h2>
+        <div class="container">
+          <div><label for="recurring_expenses">Recurring Expenses</label><input type="number" name="recurring_expenses" id="1" value="{{sum_dictionary['recurring_expenses']}}" readonly></div>
+          <div><label for="one_time_expenses">One-Time Expenses</label><input type="number" name="one_time_expenses" id="2"  value="{{sum_dictionary['one_time_expenses']}}" readonly></div>
+          <div><label for="recurring_incomes">Recurring Incomes</label><input type="number" name="recurring_incomes" id="3" value="{{sum_dictionary['recurring_incomes']}}" readonly></div>
+          <div><label for="one_time_incomes">One-Time Incomes</label><input type="number" name="one_time_incomes" id="4" value="{{sum_dictionary['one_time_incomes']}}" readonly></div>
+          <div><label for="sum">Sum</label><input type="number" name="sum" id="5" value="{{sum_dictionary['sum']}}" readonly></div>
 
       <div class="container">
         <form action="/add_transaction" method="post">
