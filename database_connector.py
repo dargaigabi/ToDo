@@ -60,7 +60,7 @@ def fetch_periods(conn):
     periods = cursor.fetchall()
     return periods
 
-#ez majd a period létrehozáshoz, period_id-val kiegészítve
+#Todo: ez majd a period létrehozáshoz, period_id-val kiegészítve
 def insert_plan(conn):
     cursor = conn.cursor()
     category_list=fetch_categories(conn)
@@ -80,7 +80,7 @@ def update_plan(conn, period_id, category_id, planned_amount):
     finally:
         close_db_connection(cursor, conn)
 
-def fetch_plans(conn, period_id):
+def fetch_plans_by_period_id(conn, period_id):
     cursor = conn.cursor()
     cursor.execute("""SELECT c.id, c.name, p.planned_amount, p.period_id, t.id
                         FROM category c
@@ -113,16 +113,13 @@ def insert_period(conn):
     period_name = request.form['period_name']
     period_from = request.form['period_from']
     period_to = request.form['period_to']
-    print(period_name)
-    print(period_from)
-    print(period_to)
     cursor.execute("""INSERT INTO period (name, date_from, date_to) values (%s, %s, %s);""", (period_name, period_from, period_to))
 
 def get_period_id_by_period_name(conn, period_name):
     try:
         cursor = conn.cursor()
         cursor.execute("SELECT id FROM period WHERE name = %s", (period_name,))
-        period_id = cursor.fetchall()
+        period_id = cursor.fetchone()
         return period_id
     except (Exception, psycopg2.Error) as error :
         print ("Error while getting data from PostgreSQL", error)

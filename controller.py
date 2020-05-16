@@ -38,18 +38,18 @@ def render_plans_page():
     if request.method == 'GET':
         list_of_periods = database_connector.fetch_periods(database_connector.connect_to_db())
         period_id = list_of_periods[0][0]
-        list_of_plans = database_connector.fetch_plans(database_connector.connect_to_db(), period_id)
+        list_of_plans = database_connector.fetch_plans_by_period_id(database_connector.connect_to_db(), period_id)
         return render_template("plans.html", plan_list = list_of_plans, period_list = list_of_periods)
     period_id = request.form['period_id']
-    list_of_plans = database_connector.fetch_plans(database_connector.connect_to_db(), period_id)
+    list_of_plans = database_connector.fetch_plans_by_period_id(database_connector.connect_to_db(), period_id)
     return jsonify(list_of_plans = list_of_plans)
 
 @app.route("/update_plan", methods = ['POST'])
 def update_plan():
     period_name = request.form.get('period')
     list_of_period_ids = database_connector.get_period_id_by_period_name(database_connector.connect_to_db(), period_name)
-    period_id = list_of_period_ids[0][0]
-    list_of_plans = database_connector.fetch_plans(database_connector.connect_to_db(), period_id)
+    period_id = list_of_period_ids[0]
+    list_of_plans = database_connector.fetch_plans_by_period_id(database_connector.connect_to_db(), period_id)
     for item in list_of_plans:
         category_id = item[0]
         print(category_id)

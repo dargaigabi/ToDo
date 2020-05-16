@@ -70,21 +70,3 @@ function resetSummary() {
     var recurring_savings = parseInt($('#5').val(0));
     var one_time_savings = parseInt($('#6').val(0));
 }
-
-/*
-$('#plan_add').click(function() {
-    var category_id = $(this).attr('name');
-    var period_id = $('.period_selector').val();
-    var planned_amount =  
-
-    $.ajax({
-        method: 'POST',
-        url: '/add_plan',
-        data: {
-        }, 
-        success: function(response) {
-        }
-    });
-
-})
-*/
