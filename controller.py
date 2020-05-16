@@ -20,7 +20,8 @@ def add_transaction():
 def render_administration_page():
     list_of_types = database_connector.fetch_types(database_connector.connect_to_db())
     list_of_categories = database_connector.fetch_categories(database_connector.connect_to_db())
-    return render_template("administration.html", type_list = list_of_types, category_list = list_of_categories)
+    list_of_periods = database_connector.fetch_periods(database_connector.connect_to_db())
+    return render_template("administration.html", type_list = list_of_types, category_list = list_of_categories, period_list = list_of_periods)
 
 @app.route("/add_category", methods = ['POST'])
 def add_category():    
@@ -32,15 +33,29 @@ def add_type():
     database_connector.insert_type(database_connector.connect_to_db())
     return redirect("/administration")
 
-@app.route("/plans")
+@app.route("/plans", methods = ['POST', 'GET'])
 def render_plans_page():
-    list_of_periods = database_connector.fetch_periods(database_connector.connect_to_db())
-    list_of_categories = database_connector.fetch_categories(database_connector.connect_to_db())
-    return render_template("plans.html", category_list = list_of_categories, period_list = list_of_periods)
+    if request.method == 'GET':
+        list_of_periods = database_connector.fetch_periods(database_connector.connect_to_db())
+        period_id = list_of_periods[0][0]
+        list_of_plans = database_connector.fetch_plans_by_period_id(database_connector.connect_to_db(), period_id)
+        return render_template("plans.html", plan_list = list_of_plans, period_list = list_of_periods)
+    period_id = request.form['period_id']
+    list_of_plans = database_connector.fetch_plans_by_period_id(database_connector.connect_to_db(), period_id)
+    return jsonify(list_of_plans = list_of_plans)
 
-@app.route("/add_plan", methods = ['POST'])
-def add_plan():    
-    database_connector.insert_plan(database_connector.connect_to_db())
+@app.route("/update_plan", methods = ['POST'])
+def update_plan():
+    period_name = request.form.get('period')
+    list_of_period_ids = database_connector.get_period_id_by_period_name(database_connector.connect_to_db(), period_name)
+    period_id = list_of_period_ids[0]
+    list_of_plans = database_connector.fetch_plans_by_period_id(database_connector.connect_to_db(), period_id)
+    for item in list_of_plans:
+        category_id = item[0]
+        print(category_id)
+        planned_amount = request.form[str(category_id)]
+        print(planned_amount)
+        database_connector.update_plan(database_connector.connect_to_db(), period_id, category_id, planned_amount)
     return redirect("/plans")
 
 @app.route("/plans/allocation/category-<category_id>", methods = ['POST'])
@@ -54,6 +69,11 @@ def count_summary(category_id):
 def select_by_period(period_id):
     allocations_by_period = database_connector.get_planned_amount_by_period_id(database_connector.connect_to_db(), period_id)
     return jsonify(planned_amounts = allocations_by_period)
+
+@app.route("/add_period", methods = ['POST'])
+def add_period():    
+    database_connector.insert_period(database_connector.connect_to_db())
+    return redirect("/administration")
 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -11,11 +11,17 @@
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous" defer></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous" defer></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous" defer></script>
-        <script type="text/javascript" src="{{ url_for('static', filename='js/main.js') }}" defer></script>
     </head>
 
     <body class="text-center">
+        <div class="container">
+        <a href="{{ url_for('render_main_page') }}">Transactions</a>
+        <a href="{{ url_for('render_plans_page') }}">Plans</a>
+        <a href="{{ url_for('render_administration_page') }}">Administration</a>
+        </div>
+
         <h1>Administration</h1>
+
         <h2>Categories</h2>
         <div class="container">
         <form action="/add_category" method="post">
@@ -32,27 +38,27 @@
         </form>
         </div>
 
-            <div class="container">
-                <table class="table">
-                <thead class="thead-dark">
-                    <tr>
-                    <th>ID</th>
-                    <th>Type</th>
-                    <th>Name</th>
-                    <th>Information</th>
-                    </tr>
-                </thead>
-                
-                {% for item in category_list %}
-                    <tr>
-                        <td>{{ item[0] }}</td>
-                        <td>{{ item[3] }}</td>
-                        <td>{{ item[1] }}</td>
-                        <!--<td>{{ item[2] }}</td>-->
-                    </tr>
-                {% endfor %}
-                </table>
-            </div>
+        <div class="container">
+            <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                <th>ID</th>
+                <th>Type</th>
+                <th>Name</th>
+                <th>Information</th>
+                </tr>
+            </thead>
+            
+            {% for item in category_list %}
+                <tr>
+                    <td>{{ item[0] }}</td>
+                    <td>{{ item[3] }}</td>
+                    <td>{{ item[1] }}</td>
+                    <!--<td>{{ item[2] }}</td>-->
+                </tr>
+            {% endfor %}
+            </table>
+        </div>
 
         <h2>Types</h2>
         <div class="container">
@@ -64,31 +70,58 @@
             </form>
         </div>
         
-            <div class="container">
-                <table class="table">
-                <thead class="thead-dark">
-                    <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    </tr>
-                </thead>
-                
-                {% for item in type_list %}
-                    <tr>
-                        <td>{{ item[0] }}</td>
-                        <td>{{ item[1] }}</td>
-                    </tr>
-                {% endfor %}
-                </table>
-            </div>
-        
-      <div class="container">
-        <a href="{{ url_for('render_plans_page') }}">Plans</a>
-      </div>
+        <div class="container">
+            <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                <th>ID</th>
+                <th>Name</th>
+                </tr>
+            </thead>
+            
+            {% for item in type_list %}
+                <tr>
+                    <td>{{ item[0] }}</td>
+                    <td>{{ item[1] }}</td>
+                </tr>
+            {% endfor %}
+            </table>
+        </div>
 
-      <div class="container">
-        <a href="{{ url_for('render_main_page') }}">Transactions</a>
-      </div>
+        <h2>Periods</h2>
+
+        <div class="container">
+            <form action="/add_period" method="post">
+                <div class="container">
+                    <input type="text" name="period_name" class="form-control">
+                    <input type="date" name="period_from" class="form-control">
+                    <input type="date" name="period_to" class="form-control">
+                    <input type="submit" id="period_add" class="btn btn-primary" value="Add">
+                </div>
+            </form>
+        </div>
+
+        <div class="container">
+            <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>From</th>
+                <th>To</th>
+                </tr>
+            </thead>
+            
+            {% for item in period_list %}
+                <tr>
+                    <td>{{ item[0] }}</td>
+                    <td>{{ item[1] }}</td>
+                    <td>{{ item[2] }}</td>
+                    <td>{{ item[3] }}</td>
+                </tr>
+            {% endfor %}
+            </table>
+        </div>
 
     </body>
 

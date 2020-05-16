@@ -11,19 +11,18 @@
         <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous" defer></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous" defer></script>
-        <script type="text/javascript" src="{{ url_for('static', filename='js/main.js') }}" defer></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='js/plans.js') }}" defer></script>
     </head>
 
     <body class="text-center">
-      <h1>Plans</h1>
-      <div>
-        <select name="transaction_period" class="period_selector">
-          {% for item in period_list %}
-              <option data-id="{{ item[0] }}">{{ item[1] }}</option>
-          {% endfor %}
-        </select>  
+      <div class="container">
+        <a href="{{ url_for('render_main_page') }}">Transactions</a>
+        <a href="{{ url_for('render_plans_page') }}">Plans</a>
+        <a href="{{ url_for('render_administration_page') }}">Administration</a>
       </div>
-      
+
+      <h1>Plans</h1>
+
       <h2>Summary</h2>
         <div class="container">
           <div><label for="recurring_expenses">Recurring Expenses</label><input type="number" name="recurring_expenses" id="1" value="0" readonly></div>
@@ -33,29 +32,29 @@
           <div><label for="recurring_savings">Recurring Savings</label><input type="number" name="recurring_savings" id="5" value="0" readonly></div>
           <div><label for="one_time_savings">One-Time Savings</label><input type="number" name="one_time_savings" id="6" value="0" readonly></div>
           <div><label for="possessions">Possessions</label><input type="number" name="possessions" id="8" value="0" readonly></div>
-          <div><label for="amount_to_allocate">Amount to Allocate</label><input type="number" name="amount_to_allocate" value="0" readonly></div>
+          <div><label for="amount_to_allocate">Amount to Allocate</label><input type="number" name="amount_to_allocate" id="amount_to_allocate" value="0" readonly></div>
         </div>
       <h2>Allocation</h2>
         <div class="container">
-          <form action="/add_plan" method="post">
-            <div class="container">  
-              {% for item in category_list %}
-                  <label>{{ item[1] }}</label>
-                  <input type="number" id="category-{{ item[0] }}" name="{{ item[0] }}" class="form-control">
-              {% endfor %}              
+          <form action="/update_plan" method="post">
+            <div>
+              <select name="period" class="period_selector">
+                {% for item in period_list %}
+                    <option name="period_option" data-id="{{ item[0] }}">{{ item[1] }}</option>
+                {% endfor %}
+              </select>  
+            </div>
+            <div class="container">
               <input type="submit" id="plan_add" class="btn btn-primary" value="Save">
+            </div>
+            <div class="container">  
+              {% for item in plan_list %}
+                  <label>{{ item[1] }}</label>
+                  <input type="number" id="category-{{ item[0] }}" name="{{ item[0] }}" class="form-control planned-amount" value="{{ item[2] }}" data-type-id="{{ item[4] }}">
+              {% endfor %}              
             </div>
           </form>
         </div>
-
-      <div class="container">
-        <a href="{{ url_for('render_main_page') }}">Transactions</a>
-      </div>
-
-      <div class="container">
-        <a href="{{ url_for('render_administration_page') }}">Administration</a>
-      </div>
-
     </body>
 
 </html>
