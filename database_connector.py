@@ -60,14 +60,14 @@ def fetch_periods(conn):
     periods = cursor.fetchall()
     return periods
 
-#Todo: ez majd a period létrehozáshoz, period_id-val kiegészítve
 def insert_plan(conn):
     cursor = conn.cursor()
     category_list=fetch_categories(conn)
+    period_list=fetch_periods(conn)
+    period_id=period_list[0][0]
     for item in category_list:
         category_id=item[0]
-        planned_amount = request.form[str(category_id)]
-        cursor.execute("""INSERT INTO plan (category_id, planned_amount, insert_date) values (%s, %s, %s)""", (category_id, planned_amount, datetime.now()))
+        cursor.execute("""INSERT INTO plan (category_id, planned_amount, insert_date, period_id) values (%s, 0, %s, %s)""", (category_id, datetime.now(), period_id))
 
 def update_plan(conn, period_id, category_id, planned_amount):
     try:

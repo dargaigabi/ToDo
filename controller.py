@@ -81,6 +81,7 @@ def select_by_period(period_id):
 @app.route("/add_period", methods = ['POST'])
 def add_period():    
     database_connector.insert_period(database_connector.connect_to_db())
+    database_connector.insert_plan(database_connector.connect_to_db())
     return redirect("/administration")
 
 if __name__ == "__main__":
