@@ -1,21 +1,29 @@
+var original_field_value = 0;
+var processing = false;
+
+$('.form-control').focus(function(){
+    if (processing === false){
+        original_field_value = parseInt($(this).val());
+    }    
+});
+
 $('.form-control').change(function(){
-    var field_id=$(this).attr('id');
-    
+    processing = true;
+    var field_id = $(this).attr('id');
+    var new_value = parseInt($(this).val());
+
     $.ajax({
         method: 'POST',
         url: '/plans/allocation/' + field_id,
-        data: {
-            field_value: $(this).val()
-        }, 
         success: function(response) {
-            var amount = parseInt(response['amount'])
             var type_id = response['type_id']
             var original_amount = parseInt($('#' + type_id).val())
-            $('#' + type_id).val(original_amount + amount)
+            $('#' + type_id).val(original_amount - original_field_value + new_value)
             countAllocation();
+            processing = false;
         }
     });
-})
+});
 
 function countAllocation() {
     var recurring_expenses = parseInt($('#1').val());
