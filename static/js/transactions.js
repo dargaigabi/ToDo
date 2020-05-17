@@ -13,7 +13,7 @@ function fillTableWithTransactionData(periodId) {
         url: "/" + periodId,
         method: 'POST',
         success: function(response) {
-            var table = $('#transaction_table');
+            var table = $('#transaction_table')
             table.empty()
             var transaction_list = response['list_of_transactions']
             for (var i = 0; i < transaction_list.length; i++) {
@@ -27,8 +27,15 @@ function fillTableWithTransactionData(periodId) {
                             '</td><td>' + date + 
                             '</td><td>' + category + 
                             '</td><td>' + detail +
-                            '</td><td>' + amount + '</td></tr>');
+                            '</td><td>' + amount + '</td></tr>')
             }
+
+            var dictionary_of_sums = response['dictionary_of_sums']
+            $('#1').val(dictionary_of_sums['recurring_expenses'])
+            $('#2').val(dictionary_of_sums['one_time_expenses'])
+            $('#3').val(dictionary_of_sums['recurring_incomes'])
+            $('#4').val(dictionary_of_sums['one_time_incomes'])
+            $('#5').val(dictionary_of_sums['sum'])
         }
     });
 }

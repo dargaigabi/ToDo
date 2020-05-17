@@ -1,5 +1,6 @@
 from flask import Flask, request, render_template, redirect, jsonify
 import database_connector
+import summary_service
 
 app = Flask(__name__)
 
@@ -7,13 +8,16 @@ app = Flask(__name__)
 def render_main_page():
     list_of_categories = database_connector.fetch_categories(database_connector.connect_to_db())
     list_of_periods = database_connector.fetch_periods(database_connector.connect_to_db())
-    return render_template("transactions.html", category_list = list_of_categories, period_list = list_of_periods)
+    period_id = list_of_periods[0][0]
+    dictionary_of_sums = summary_service.count_sums(period_id)
+    return render_template("transactions.html", category_list = list_of_categories, period_list = list_of_periods, sum_dictionary = dictionary_of_sums)
 
 @app.route("/<period_id>", methods = ['POST'])
 def refresh_transactions_by_period(period_id):
     list_of_transactions = database_connector.fetch_transactions_by_period_id(database_connector.connect_to_db(), period_id)
     list_of_transactions.reverse()
-    return jsonify(list_of_transactions = list_of_transactions)
+    dictionary_of_sums = summary_service.count_sums(period_id)
+    return jsonify(list_of_transactions = list_of_transactions, dictionary_of_sums = dictionary_of_sums)
 
 @app.route("/add_transaction", methods = ['POST'])
 def add_transaction():    
