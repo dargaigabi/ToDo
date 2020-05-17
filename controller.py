@@ -16,7 +16,8 @@ def render_main_page():
 def refresh_transactions_by_period(period_id):
     list_of_transactions = database_connector.fetch_transactions_by_period_id(database_connector.connect_to_db(), period_id)
     list_of_transactions.reverse()
-    return jsonify(list_of_transactions = list_of_transactions)
+    dictionary_of_sums = summary_service.count_sums(period_id)
+    return jsonify(list_of_transactions = list_of_transactions, dictionary_of_sums = dictionary_of_sums)
 
 @app.route("/add_transaction", methods = ['POST'])
 def add_transaction():    
