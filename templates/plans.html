@@ -15,11 +15,11 @@
     </head>
 
     <body class="text-center">
-      <div class="container">
-        <a href="{{ url_for('render_main_page') }}">Transactions</a>
-        <a href="{{ url_for('render_plans_page') }}">Plans</a>
-        <a href="{{ url_for('render_administration_page') }}">Administration</a>
-      </div>
+      <ul>
+        <li><a href="{{ url_for('render_main_page') }}">Transactions</a></li>
+        <li class="active"><a href="{{ url_for('render_plans_page') }}">Plans</a></li>
+        <li><a href="{{ url_for('render_administration_page') }}">Administration</a></li>
+      </ul>
 
       <h1>Plans</h1>
 
