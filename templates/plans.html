@@ -31,15 +31,12 @@
     
     <div class="container">
       <div class="row">
-        <div class="col"></div>
         <div class="col">
           <h1>Plans</h1>
         </div>
-        <div class="col"></div>
       </div>
 
       <div class="row">
-        <div class="col"></div>
         <div class="col">
           <select name="period" class="custom-select period_selector">
             {% for item in period_list %}
@@ -47,15 +44,12 @@
             {% endfor %}
           </select>
         </div>
-        <div class="col"></div>
       </div>
 
       <div class="row">
-        <div class="col"></div>
         <div class="col">
         <div><label for="amount_to_allocate">Amount to Allocate</label><input class="form-control text-center font-weight-bold border-dark" type="number" name="amount_to_allocate" id="amount_to_allocate" value="0" readonly></div>
         </div>
-        <div class="col"></div>
       </div>
       <div class="row">
         <div class="col">
@@ -76,22 +70,18 @@
       </div>
       
       <div class="row">
-        <div class="col"></div>
         <div class="col">
           <input type="submit" id="plan_add" class="btn btn-primary" value="Save">
         </div>
-        <div class="col"></div>
       </div>
 
       <div class="row">
-        <div class="col"></div>
         <div class="col">
           {% for item in plan_list %}
             <label>{{ item[1] }}</label>
             <input type="number" id="category-{{ item[0] }}" name="{{ item[0] }}" class="form-control text-center planned-amount" value="{{ item[2] }}" data-type-id="{{ item[4] }}" autofocus>
           {% endfor %}              
         </div>
-        <div class="col"></div>
       </div>   
     </div>
 

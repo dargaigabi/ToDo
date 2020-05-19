@@ -28,25 +28,22 @@
 
         <div class="container">
             <div class="row">
-                <div class="col"></div>
                 <div class="col">
                     <h1>Administration</h1>
                 </div>
-                <div class="col"></div>
             </div>
         </div>      
 
         <div class="container">
             <div class="row">
-                <div class="col"></div>
                 <div class="col">
                     <h2>Categories</h2>
                 </div>
-                <div class="col"></div>
             </div>
             <div class="row">
                 <form action="/add_category" method="post">
                     <div class="col">
+                        <label for="category_type">Category Type</label>
                         <select name="category_type">
                             {% for item in type_list %}
                                 <option>{{ item[1] }}</option>
@@ -89,21 +86,17 @@
 
         <div class="container">
             <div class="row">
-                <div class="col"></div>
                 <div class="col">
                     <h2>Types</h2>
                 </div>
-                <div class="col"></div>
             </div>
         
             <div class="row">
                 <form action="/add_type" method="post">
-                    <div class="col"></div>
                     <div class="col">
                         <input type="text" name="type_name" class="form-control">
                         <input type="submit" id="type_add" class="btn btn-primary" value="Add">
                     </div>
-                    <div class="col"></div>
                 </form>
             </div>
         
