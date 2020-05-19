@@ -14,28 +14,56 @@
     </head>
 
     <body class="text-center">
-        <ul>
-            <li><a href="{{ url_for('render_main_page') }}">Transactions</a></li>
-            <li><a href="{{ url_for('render_plans_page') }}">Plans</a></li>
-            <li class="active"><a href="{{ url_for('render_administration_page') }}">Administration</a></li>
-        </ul>
-
-        <h1>Administration</h1>
-
-        <h2>Categories</h2>
         <div class="container">
-        <form action="/add_category" method="post">
-            <div class="container">  
-                <select name="category_type">
-                    {% for item in type_list %}
-                        <option>{{ item[1] }}</option>
-                    {% endfor %}
-                </select>
-                <input type="text" name="category_name" class="form-control">
-                <input type="text" name="category_information" class="form-control">
-                <input type="submit" id="category_add" class="btn btn-primary" value="Add">
+            <div class="row">
+              <div class="col">
+                <nav class="navbar fixed-top navbar-dark bg-primary">
+                  <a class="navbar-brand" href="{{ url_for('render_main_page') }}">Transactions</a>
+                  <a class="navbar-brand" href="{{ url_for('render_plans_page') }}">Plans</a>
+                  <a class="navbar-brand" href="{{ url_for('render_administration_page') }}">Administration</a>
+                </nav>
+              </div>
             </div>
-        </form>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col"></div>
+                <div class="col">
+                    <h1>Administration</h1>
+                </div>
+                <div class="col"></div>
+            </div>
+        </div>      
+
+        <div class="container">
+            <div class="row">
+                <div class="col"></div>
+                <div class="col">
+                    <h2>Categories</h2>
+                </div>
+                <div class="col"></div>
+            </div>
+            <div class="row">
+                <form action="/add_category" method="post">
+                    <div class="col">
+                        <select name="category_type">
+                            {% for item in type_list %}
+                                <option>{{ item[1] }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col">
+                        <input type="text" name="category_name" class="form-control">
+                    </div>
+                    <div class="col">
+                        <input type="text" name="category_information" class="form-control">
+                    </div>
+                    <div class="col">
+                        <input type="submit" id="category_add" class="btn btn-primary" value="Add">
+                    </div>
+                </form>
+            </div>
         </div>
 
         <div class="container">
@@ -47,8 +75,7 @@
                 <th>Name</th>
                 <th>Information</th>
                 </tr>
-            </thead>
-            
+            </thead>       
             {% for item in category_list %}
                 <tr>
                     <td>{{ item[0] }}</td>
@@ -60,15 +87,25 @@
             </table>
         </div>
 
-        <h2>Types</h2>
         <div class="container">
-            <form action="/add_type" method="post">
-                <div class="container">  
-                    <input type="text" name="type_name" class="form-control">
-                    <input type="submit" id="type_add" class="btn btn-primary" value="Add">
+            <div class="row">
+                <div class="col"></div>
+                <div class="col">
+                    <h2>Types</h2>
                 </div>
-            </form>
-        </div>
+                <div class="col"></div>
+            </div>
+        
+            <div class="row">
+                <form action="/add_type" method="post">
+                    <div class="col"></div>
+                    <div class="col">
+                        <input type="text" name="type_name" class="form-control">
+                        <input type="submit" id="type_add" class="btn btn-primary" value="Add">
+                    </div>
+                    <div class="col"></div>
+                </form>
+            </div>
         
         <div class="container">
             <table class="table">
