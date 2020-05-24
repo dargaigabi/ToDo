@@ -18,7 +18,7 @@
     <div class="container">
       <div class="row">
         <div class="col">
-          <nav class="navbar fixed-top navbar-dark bg-primary">
+          <nav class="navbar fixed-top navbar-dark bg-dark">
             <a class="navbar-brand" href="{{ url_for('render_main_page') }}">Transactions</a>
             <a class="navbar-brand" href="{{ url_for('render_plans_page') }}">Plans</a>
             <a class="navbar-brand" href="{{ url_for('render_administration_page') }}">Administration</a>
@@ -29,49 +29,55 @@
 
     <form action="/add_transaction" method="post">
     
-      <div class="container">
-        <div class="row">
-          <div class="col">
-            <h1>Transactions</h1>
-            <select name="transaction_period"  class="custom-select transaction_period_selector">
-              {% for item in period_list %}
-                  <option data-id="{{ item[0] }}">{{ item[1] }}</option>
-              {% endfor %}
-            </select>
-            <label for="sum">Balance</label>
-            <input class="form-control text-center font-weight-bold border-dark" type="number" name="sum" id="5" value="{{sum_dictionary['sum']}}" readonly>
-          </div>
-        </div>
-      </div>
-
-      <div class="container">
-        <div class="row">
-          <div class="col">   
-              <label for="transaction_category">Category</label>
-              <select class="custom-select" name="transaction_category" autofocus>
-                {% for item in category_list %}
-                    <option>{{ item[1] }}</option>
-                {% endfor %}
-              </select>
-              <label for="transaction_date">Date</label>
-              <input type="date" name="transaction_date" class="form-control">
-              <label for="transaction_details">Details</label>
-              <input type="text" name="transaction_details" class="form-control">
-              <label for="transaction_amount">Amount</label>
-              <input type="number" name="transaction_amount" class="form-control">
-              <input type="submit" id="transaction_add" class="btn btn-primary" value="Add">
-          </div>  
-          
-        </form>
-
-        <div class="col">
-          <div><label for="recurring_incomes">Recurring Incomes</label><input class="form-control text-center text-white bg-success" type="number" name="recurring_incomes" id="3" value="{{sum_dictionary['recurring_incomes']}}" readonly></div>
-          <div><label for="one_time_incomes">One-Time Incomes</label><input class="form-control text-center text-white bg-success" type="number" name="one_time_incomes" id="4" value="{{sum_dictionary['one_time_incomes']}}" readonly></div>
-          <div><label for="recurring_expenses">Recurring Expenses</label><input class="form-control text-center text-white bg-danger" type="number" name="recurring_expenses" id="1" value="{{sum_dictionary['recurring_expenses']}}" readonly></div>
-          <div><label for="one_time_expenses">One-Time Expenses</label><input class="form-control text-center text-white bg-danger" type="number" name="one_time_expenses" id="2"  value="{{sum_dictionary['one_time_expenses']}}" readonly></div>  
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 offset-md-4">
+          <h1>Transactions</h1>
+          <select name="transaction_period"  class="custom-select transaction_period_selector">
+            {% for item in period_list %}
+                <option data-id="{{ item[0] }}">{{ item[1] }}</option>
+            {% endfor %}
+          </select>
+          <label for="sum">Balance</label>
+          <input class="form-control text-center font-weight-bold border-dark" type="number" name="sum" id="5" value="{{sum_dictionary['sum']}}" readonly>
         </div>
       </div>
     </div>
+
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <label for="recurring_incomes">Recurring Incomes</label><input class="form-control text-center text-white bg-success" type="number" name="recurring_incomes" id="3" value="{{sum_dictionary['recurring_incomes']}}" readonly>
+          <label for="one_time_incomes">One-Time Incomes</label><input class="form-control text-center text-white bg-success" type="number" name="one_time_incomes" id="4" value="{{sum_dictionary['one_time_incomes']}}" readonly>
+        </div>
+        <div class="col">
+          <label for="recurring_expenses">Recurring Expenses</label><input class="form-control text-center text-white bg-danger" type="number" name="recurring_expenses" id="1" value="{{sum_dictionary['recurring_expenses']}}" readonly>
+          <label for="one_time_expenses">One-Time Expenses</label><input class="form-control text-center text-white bg-danger" type="number" name="one_time_expenses" id="2"  value="{{sum_dictionary['one_time_expenses']}}" readonly>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 offset-md-4">
+          <label for="transaction_category">Category</label>
+          <select class="custom-select" name="transaction_category" autofocus>
+            {% for item in category_list %}
+                <option>{{ item[1] }}</option>
+            {% endfor %}
+          </select>
+          <label for="transaction_date">Date</label>
+          <input type="date" name="transaction_date" class="form-control">
+          <label for="transaction_details">Details</label>
+          <input type="text" name="transaction_details" class="form-control">
+          <label for="transaction_amount">Amount</label>
+          <input type="number" name="transaction_amount" class="form-control" min="0">
+          <input type="submit" id="transaction_add" class="btn btn-primary form-control" value="Add">
+        </div>
+      </div>
+    </div>
+
+    </form>
 
     <div class="container">
       <div class="row">

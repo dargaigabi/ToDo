@@ -73,9 +73,7 @@ def update_plan():
     list_of_plans = plan_repository_impl.fetch_plans_by_period_id(database_connector.connect_to_db(), period_id)
     for item in list_of_plans:
         category_id = item[0]
-        print(category_id)
         planned_amount = request.form[str(category_id)]
-        print(planned_amount)
         plan_repository_impl.update_plan(database_connector.connect_to_db(), period_id, category_id, planned_amount)
     return redirect("/plans")
 

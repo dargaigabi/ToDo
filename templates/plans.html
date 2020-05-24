@@ -18,7 +18,7 @@
     <div class="container">
       <div class="row">
         <div class="col">
-          <nav class="navbar fixed-top navbar-dark bg-primary">
+          <nav class="navbar fixed-top navbar-dark bg-dark">
             <a class="navbar-brand" href="{{ url_for('render_main_page') }}">Transactions</a>
             <a class="navbar-brand" href="{{ url_for('render_plans_page') }}">Plans</a>
             <a class="navbar-brand" href="{{ url_for('render_administration_page') }}">Administration</a>
@@ -31,34 +31,29 @@
     
     <div class="container">
       <div class="row">
-        <div class="col">
+        <div class="col-md-4 offset-md-4">
           <h1>Plans</h1>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col">
           <select name="period" class="custom-select period_selector">
             {% for item in period_list %}
                 <option name="period_option" data-id="{{ item[0] }}">{{ item[1] }}</option>
             {% endfor %}
           </select>
         </div>
+        <div class="col-md-4 offset-md-4">
+          <input class="form-control text-center font-weight-bold border-dark" type="number" name="amount_to_allocate" id="amount_to_allocate" value="0" readonly>
+        </div>
       </div>
+    </div>
 
+    <div class="container">
       <div class="row">
         <div class="col">
-        <div><label for="amount_to_allocate">Amount to Allocate</label><input class="form-control text-center font-weight-bold border-dark" type="number" name="amount_to_allocate" id="amount_to_allocate" value="0" readonly></div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col">
-          <div><label for="recurring_expenses">Recurring Expenses</label><input class="form-control text-center" type="number" name="recurring_expenses" id="1" value="0" readonly></div>
-          <div><label for="one_time_expenses">One-Time Expenses</label><input class="form-control text-center" type="number" name="one_time_expenses" id="2"  value="0" readonly></div>
+          <div><label for="recurring_incomes">Recurring Incomes</label><input class="form-control text-center text-white bg-success" type="number" name="recurring_incomes" id="3" value="0" readonly></div>
+          <div><label for="one_time_incomes">One-Time Incomes</label><input class="form-control text-center text-white bg-success" type="number" name="one_time_incomes" id="4" value="0" readonly></div>
         </div>
         <div class="col">
-          <div><label for="recurring_incomes">Recurring Incomes</label><input class="form-control text-center" type="number" name="recurring_incomes" id="3" value="0" readonly></div>
-          <div><label for="one_time_incomes">One-Time Incomes</label><input class="form-control text-center" type="number" name="one_time_incomes" id="4" value="0" readonly></div>
+          <div><label for="recurring_expenses">Recurring Expenses</label><input class="form-control text-center text-white bg-danger" type="number" name="recurring_expenses" id="1" value="0" readonly></div>
+          <div><label for="one_time_expenses">One-Time Expenses</label><input class="form-control text-center text-white bg-danger" type="number" name="one_time_expenses" id="2"  value="0" readonly></div>
         </div>
         <div class="col">
           <div><label for="recurring_savings">Recurring Savings</label><input class="form-control text-center" type="number" name="recurring_savings" id="5" value="0" readonly></div>
@@ -68,21 +63,22 @@
           <div><label for="possessions">Possessions</label><input class="form-control text-center" type="number" name="possessions" id="8" value="0" readonly></div>
         </div>
       </div>
+    </div>
       
+    <div class="container">
       <div class="row">
-        <div class="col">
-          <input type="submit" id="plan_add" class="btn btn-primary" value="Save">
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col">
+        <div class="col-md-4 offset-md-4">
           {% for item in plan_list %}
             <label>{{ item[1] }}</label>
-            <input type="number" id="category-{{ item[0] }}" name="{{ item[0] }}" class="form-control text-center planned-amount" value="{{ item[2] }}" data-type-id="{{ item[4] }}" autofocus>
+            <input type="number" id="category-{{ item[0] }}" name="{{ item[0] }}" class="form-control text-center planned-amount" value="{{ item[2] }}" data-type-id="{{ item[4] }}" min="0" autofocus>
           {% endfor %}              
         </div>
       </div>   
+      <div class="row">
+        <div class="col-md-4 offset-md-4">
+          <input type="submit" id="plan_add" class="btn btn-primary" value="Save">
+        </div>
+    </div>
     </div>
 
     </form>

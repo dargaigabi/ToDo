@@ -17,7 +17,7 @@
         <div class="container">
             <div class="row">
               <div class="col">
-                <nav class="navbar fixed-top navbar-dark bg-primary">
+                <nav class="navbar fixed-top navbar-dark bg-dark">
                   <a class="navbar-brand" href="{{ url_for('render_main_page') }}">Transactions</a>
                   <a class="navbar-brand" href="{{ url_for('render_plans_page') }}">Plans</a>
                   <a class="navbar-brand" href="{{ url_for('render_administration_page') }}">Administration</a>
@@ -34,34 +34,32 @@
             </div>
         </div>      
 
+        <form action="/add_category" method="post">
+
         <div class="container">
             <div class="row">
-                <div class="col">
+                <div class="col-md-4 offset-md-4">
                     <h2>Categories</h2>
                 </div>
             </div>
             <div class="row">
-                <form action="/add_category" method="post">
-                    <div class="col">
-                        <label for="category_type">Category Type</label>
-                        <select name="category_type">
-                            {% for item in type_list %}
-                                <option>{{ item[1] }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                    <div class="col">
-                        <input type="text" name="category_name" class="form-control">
-                    </div>
-                    <div class="col">
-                        <input type="text" name="category_information" class="form-control">
-                    </div>
-                    <div class="col">
-                        <input type="submit" id="category_add" class="btn btn-primary" value="Add">
-                    </div>
-                </form>
+                <div class="col-md-4 offset-md-4">
+                    <label for="category_type">Type</label>
+                    <select name="category_type" class="custom-select period_selector">
+                        {% for item in type_list %}
+                            <option>{{ item[1] }}</option>
+                        {% endfor %}
+                    </select>
+                    <label for="category_name">Category</label>
+                    <input type="text" name="category_name" class="form-control">
+                    <label for="category_information">Information</label>
+                    <input type="text" name="category_information" class="form-control">
+                    <input type="submit" id="category_add" class="btn btn-primary" value="Add">
+                </div>
             </div>
         </div>
+
+        </form>
 
         <div class="container">
             <table class="table">
@@ -83,23 +81,24 @@
             {% endfor %}
             </table>
         </div>
+        
+        <form action="/add_type" method="post">
 
         <div class="container">
-            <div class="row">
-                <div class="col">
-                    <h2>Types</h2>
-                </div>
+            <div class="col-md-4 offset-md-4">
+                <h2>Types</h2>
             </div>
-        
             <div class="row">
-                <form action="/add_type" method="post">
-                    <div class="col">
-                        <input type="text" name="type_name" class="form-control">
-                        <input type="submit" id="type_add" class="btn btn-primary" value="Add">
-                    </div>
-                </form>
+                <div class="col-md-4 offset-md-4">
+                    <label for="type_name">Type</label>
+                    <input type="text" name="type_name" class="form-control">
+                    <input type="submit" id="type_add" class="btn btn-primary" value="Add">
+                </div>        
             </div>
+        </div>
         
+        </form>
+
         <div class="container">
             <table class="table">
             <thead class="thead-dark">
@@ -108,7 +107,6 @@
                 <th>Name</th>
                 </tr>
             </thead>
-            
             {% for item in type_list %}
                 <tr>
                     <td>{{ item[0] }}</td>
@@ -118,19 +116,29 @@
             </table>
         </div>
 
-        <h2>Periods</h2>
-
+        <form action="/add_period" method="post">
+        
         <div class="container">
-            <form action="/add_period" method="post">
-                <div class="container">
+            <div class="row">
+                <div class="col-md-4 offset-md-4">
+                    <h2>Periods</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 offset-md-4">
+                    <label for="period_name">Period</label>
                     <input type="text" name="period_name" class="form-control">
+                    <label for="period_from">From</label>
                     <input type="date" name="period_from" class="form-control">
+                    <label for="period_to">To</label>
                     <input type="date" name="period_to" class="form-control">
                     <input type="submit" id="period_add" class="btn btn-primary" value="Add">
                 </div>
-            </form>
+            </div>
         </div>
 
+        </form>
+        
         <div class="container">
             <table class="table">
             <thead class="thead-dark">
@@ -140,8 +148,7 @@
                 <th>From</th>
                 <th>To</th>
                 </tr>
-            </thead>
-            
+            </thead>          
             {% for item in period_list %}
                 <tr>
                     <td>{{ item[0] }}</td>
