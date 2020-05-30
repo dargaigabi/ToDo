@@ -5,6 +5,7 @@ import type_repository_impl
 import period_repository_impl
 import category_repository_impl
 import plan_repository_impl
+import user_repository_impl
 
 app = Flask(__name__)
 
@@ -95,6 +96,28 @@ def add_period():
     period_repository_impl.insert_period(database_connector.connect_to_db(), period_name, period_from, period_to)
     plan_repository_impl.insert_plan(database_connector.connect_to_db())
     return redirect("/administration")
+
+@app.route("/signup")
+def render_signup():
+    return render_template("signup.html")
+
+@app.route("/add_user", methods = ['POST'])
+def add_user():
+    username = request.form['username']
+    password = request.form['password']
+    user_repository_impl.insert_user(database_connector.connect_to_db(), username, password)
+    return redirect("/signup")
+
+@app.route("/login")
+def render_login():
+    return render_template("login.html")
+
+@app.route("/verify_user", methods = ['POST'])
+def verify_user():
+    username = request.form['username']
+    password = request.form['password']
+    user_repository_impl.verify_user(database_connector.connect_to_db(), username, password)
+    return redirect("/login")
 
 if __name__ == "__main__":
     app.run(debug=True)
