@@ -9,6 +9,7 @@ def insert_user(conn, username, password):
 def hash_password(password):
     return pbkdf2_sha256.hash(password)
 
+@auth.verify_password
 def verify_user(conn, username, password):
     cursor = conn.cursor()
     cursor.execute("SELECT password_hash FROM users WHERE username = %s;", (username,))

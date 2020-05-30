@@ -6,10 +6,13 @@ import period_repository_impl
 import category_repository_impl
 import plan_repository_impl
 import user_repository_impl
+from flask_httpauth import HTTPBasicAuth
 
+auth = HTTPBasicAuth()
 app = Flask(__name__)
 
 @app.route("/")
+@auth.login_required
 def render_main_page():
     list_of_categories = category_repository_impl.fetch_categories(database_connector.connect_to_db())
     list_of_periods = period_repository_impl.fetch_periods(database_connector.connect_to_db())
@@ -18,6 +21,7 @@ def render_main_page():
     return render_template("transactions.html", category_list = list_of_categories, period_list = list_of_periods, sum_dictionary = dictionary_of_sums)
 
 @app.route("/<period_id>", methods = ['POST'])
+@auth.login_required
 def refresh_transactions_by_period(period_id):
     list_of_transactions = transaction_repository_impl.fetch_transactions_by_period_id(database_connector.connect_to_db(), period_id)
     list_of_transactions.reverse()
@@ -25,6 +29,7 @@ def refresh_transactions_by_period(period_id):
     return jsonify(list_of_transactions = list_of_transactions, dictionary_of_sums = dictionary_of_sums)
 
 @app.route("/add_transaction", methods = ['POST'])
+@auth.login_required
 def add_transaction():    
     transaction_period = request.form['transaction_period']
     transaction_category = request.form['transaction_category']
@@ -35,6 +40,7 @@ def add_transaction():
     return redirect("/")
     
 @app.route("/administration")
+@auth.login_required
 def render_administration_page():
     list_of_types = type_repository_impl.fetch_types(database_connector.connect_to_db())
     list_of_categories = category_repository_impl.fetch_categories(database_connector.connect_to_db())
@@ -42,6 +48,7 @@ def render_administration_page():
     return render_template("administration.html", type_list = list_of_types, category_list = list_of_categories, period_list = list_of_periods)
 
 @app.route("/add_category", methods = ['POST'])
+@auth.login_required
 def add_category():
     category_type = request.form['category_type']
     category_name = request.form['category_name']
@@ -50,12 +57,14 @@ def add_category():
     return redirect("/administration")
 
 @app.route("/add_type", methods = ['POST'])
+@auth.login_required
 def add_type():
     type_name = request.form['type_name']    
     type_repository_impl.insert_type(database_connector.connect_to_db(), type_name)
     return redirect("/administration")
 
 @app.route("/plans", methods = ['POST', 'GET'])
+@auth.login_required
 def render_plans_page():
     if request.method == 'GET':
         list_of_periods = period_repository_impl.fetch_periods(database_connector.connect_to_db())
@@ -67,6 +76,7 @@ def render_plans_page():
     return jsonify(list_of_plans = list_of_plans)
 
 @app.route("/update_plan", methods = ['POST'])
+@auth.login_required
 def update_plan():
     period_name = request.form.get('period')
     list_of_period_ids = period_repository_impl.get_period_id_by_period_name(database_connector.connect_to_db(), period_name)
@@ -79,16 +89,19 @@ def update_plan():
     return redirect("/plans")
 
 @app.route("/plans/allocation/category-<category_id>", methods = ['POST'])
+@auth.login_required
 def count_summary(category_id):
     type_id = type_repository_impl.get_type_id_by_category_id(database_connector.connect_to_db(), category_id)
     return jsonify(type_id=type_id[0])
 
 @app.route("/plans/period/<period_id>", methods = ['POST'])
+@auth.login_required
 def select_by_period(period_id):
     allocations_by_period = plan_repository_impl.get_planned_amount_by_period_id(database_connector.connect_to_db(), period_id)
     return jsonify(planned_amounts = allocations_by_period)
 
 @app.route("/add_period", methods = ['POST'])
+@auth.login_required
 def add_period():
     period_name = request.form['period_name']
     period_from = request.form['period_from']
@@ -106,7 +119,7 @@ def add_user():
     username = request.form['username']
     password = request.form['password']
     user_repository_impl.insert_user(database_connector.connect_to_db(), username, password)
-    return redirect("/signup")
+    return redirect("/administration")
 
 @app.route("/login")
 def render_login():
@@ -116,7 +129,9 @@ def render_login():
 def verify_user():
     username = request.form['username']
     password = request.form['password']
-    user_repository_impl.verify_user(database_connector.connect_to_db(), username, password)
+    login_successful = user_repository_impl.verify_user(database_connector.connect_to_db(), username, password)
+    if (login_successful):
+        return redirect("/")
     return redirect("/login")
 
 if __name__ == "__main__":
