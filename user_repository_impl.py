@@ -1,6 +1,9 @@
 import psycopg2
 import database_connector
 from passlib.hash import pbkdf2_sha256
+from flask_httpauth import HTTPBasicAuth
+
+auth = HTTPBasicAuth()
 
 def insert_user(conn, username, password):
     cursor = conn.cursor()
