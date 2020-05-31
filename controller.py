@@ -131,8 +131,11 @@ def verify_user():
     password = request.form['password']
     login_successful = user_repository_impl.verify_user(database_connector.connect_to_db(), username, password)
     if (login_successful):
-        return redirect("/")
+        user_repository_impl.login(database_connector.connect_to_db(), username)
+        return "ok"
     return redirect("/login")
+
+def check_login():
 
 if __name__ == "__main__":
     app.run(debug=True)
